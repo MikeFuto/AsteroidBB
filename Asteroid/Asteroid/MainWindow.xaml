@@ -1,0 +1,888 @@
+﻿<Window x:Class="Asteroid.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Asteroid"
+        mc:Ignorable="d"
+        Title="ASTEROID" Height="620" Width="1024" Cursor="Cross" WindowStartupLocation="CenterScreen" PreviewKeyDown="canvas_KeyDown" PreviewKeyUp="canvas_KeyUp" ResizeMode="NoResize" WindowStyle="None" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Icon="Images/cyanShip.jpg" WindowState="Maximized">
+    <Window.Background>
+        <ImageBrush ImageSource="Images/Space.jpg"/>
+    </Window.Background>
+    <Grid Name="MainGrid" ScrollViewer.CanContentScroll="True">
+        <!-- MAIN MENU (collapse this stack panel)-->
+        <StackPanel Name="Main_Menu" Margin="0,30,0,0" Visibility="Visible" CanVerticallyScroll="True" ScrollViewer.CanContentScroll="True" ClipToBounds="True">
+            <TextBlock Text="ASTEROID" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="72" TextAlignment="Center" Foreground="#FF000000" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                <TextBlock.LayoutTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="2" ScaleY="2"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </TextBlock.LayoutTransform>
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Name="TB_SinglePlayer" MouseLeftButtonUp="TB_SinglePlayer_MouseLeftButtonUp" MouseLeftButtonDown="TB_MouseLeftButtonDown" MouseEnter="TB_MouseEnter" MouseLeave="TB_MouseLeave" Text="SINGLE PLAYER" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="48" Foreground="#FF000000" HorizontalAlignment="Center" Margin="0,75,0,0">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Name="TB_MultiPlayer" MouseLeftButtonUp="TB_MultiPlayer_MouseLeftButtonUp" MouseLeftButtonDown="TB_MouseLeftButtonDown" MouseEnter="TB_MouseEnter" MouseLeave="TB_MouseLeave" Text="MULTIPLAYER" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="48" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Name="TB_HighScores" MouseLeftButtonUp="TB_HighScores_MouseLeftButtonUp" MouseLeftButtonDown="TB_MouseLeftButtonDown" MouseEnter="TB_MouseEnter" MouseLeave="TB_MouseLeave" Text="HIGH SCORES" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="48" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Name="TB_Customize" MouseLeftButtonDown="TB_MouseLeftButtonDown" MouseLeftButtonUp="TB_Customize_MouseLeftButtonUp" Text="CUSTOMIZE" MouseEnter="TB_MouseEnter" MouseLeave="TB_MouseLeave" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="48" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Name="TB_Options" MouseLeftButtonUp="TB_Options_MouseLeftButtonUp" MouseLeftButtonDown="TB_MouseLeftButtonDown" MouseEnter="TB_MouseEnter" MouseLeave="TB_MouseLeave" Text="OPTIONS" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="48" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Name="TB_Quit" MouseLeftButtonDown="TB_MouseLeftButtonDown" MouseLeftButtonUp="TB_Quit_MouseLeftButtonUp" MouseEnter="TB_MouseEnter" MouseLeave="TB_MouseLeave" Text="QUIT" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="48" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+        </StackPanel>
+        <!-- END MAIN MENU -->
+
+        <!-- SINGLE PLAYER MENU (collapse this stack panel)-->
+        <StackPanel Name="Single_Player_Menu" Margin="0,30" Visibility="Hidden" ScrollViewer.CanContentScroll="True" CanVerticallyScroll="True" ClipToBounds="True">
+            <TextBlock Text="SINGLE PLAYER" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="72" TextAlignment="Center" Foreground="#FF000000" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                <TextBlock.LayoutTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="1.9" ScaleY="2"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </TextBlock.LayoutTransform>
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Name="TB_SP_Arcade" MouseLeftButtonDown="TB_MouseLeftButtonDown" MouseLeftButtonUp="TB_SP_Arcade_MouseLeftButtonUp" MouseEnter="TB_MouseEnter" MouseLeave="TB_MouseLeave" Text="ARCADE" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="48" Foreground="#FF000000" HorizontalAlignment="Center" Margin="0,75,0,0">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <!--TextBlock Name="TB_SP_Campaign" MouseLeftButtonDown="TB_MouseLeftButtonDown" MouseLeftButtonUp="TB_SP_Campaign_MouseLeftButtonUp"  Text="CAMPAIGN" MouseEnter="TB_MouseEnter" MouseLeave="TB_MouseLeave" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="48" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </-->
+            <TextBlock Name="TB_SP_Controls" Text="CONTROLS" MouseLeftButtonDown="TB_MouseLeftButtonDown" MouseLeftButtonUp="TB_SP_Controls_MouseLeftButtonUp" MouseEnter="TB_MouseEnter" MouseLeave="TB_MouseLeave" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="48" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Name="TB_SP_Back" Text="BACK" MouseLeftButtonDown="TB_MouseLeftButtonDown" MouseLeftButtonUp="TB_SP_Back_MouseLeftButtonUp" MouseEnter="TB_MouseEnter" MouseLeave="TB_MouseLeave" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="48" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+        </StackPanel>
+        <!-- END SINGLE PLAYER MENU -->
+
+        <!-- MULTIPLAYER MENU (collapse this stack panel)-->
+        <StackPanel Name="Multi_Player_Menu" Margin="0,30" Visibility="Hidden" CanVerticallyScroll="True" ScrollViewer.CanContentScroll="True" ClipToBounds="True">
+            <TextBlock Text="MULTIPLAYER" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="72" TextAlignment="Center" Foreground="#FF000000" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                <TextBlock.LayoutTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="2" ScaleY="2"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </TextBlock.LayoutTransform>
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Name="TB_MP_Coop" Text="CO-OP" MouseLeftButtonUp="TB_MP_Coop_MouseLeftButtonUp" MouseLeftButtonDown="TB_MouseLeftButtonDown"  MouseEnter="TB_MouseEnter" MouseLeave="TB_MouseLeave" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="48" Foreground="#FF000000" HorizontalAlignment="Center" Margin="0,75,0,0">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <!--TextBlock Name="TB_MP_Versus" Text="VERSUS" MouseLeftButtonUp="TB_MP_Versus_MouseLeftButtonUp" MouseLeftButtonDown="TB_MouseLeftButtonDown" MouseEnter="TB_MouseEnter" MouseLeave="TB_MouseLeave" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="48" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </-->
+            <TextBlock Name="TB_MP_Battle" Text="BATTLE" MouseLeftButtonUp="TB_MP_Battle_MouseLeftButtonUp" MouseLeftButtonDown="TB_MouseLeftButtonDown"  MouseEnter="TB_MouseEnter" MouseLeave="TB_MouseLeave" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="48" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Name="TB_MP_Controls" Text="CONTROLS" MouseLeftButtonUp="TB_MP_Controls_MouseLeftButtonUp" MouseLeftButtonDown="TB_MouseLeftButtonDown" MouseEnter="TB_MouseEnter" MouseLeave="TB_MouseLeave" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="48" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Name="TB_MP_Back" Text="BACK" MouseLeftButtonUp="TB_MP_Back_MouseLeftButtonUp" MouseLeftButtonDown="TB_MouseLeftButtonDown" MouseEnter="TB_MouseEnter" MouseLeave="TB_MouseLeave" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="48" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+        </StackPanel>
+        <!-- END MULTIPLAYER MENU -->
+
+        <!-- BATTLE MENU -->
+        <Grid Name="Battle_Menu" Visibility="Hidden">
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <TextBlock Text="BATTLE" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="72" TextAlignment="Center" Margin="0,30" Foreground="#FF000000" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2">
+                <TextBlock.LayoutTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="2" ScaleY="2"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </TextBlock.LayoutTransform>
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="Red" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+
+            <Button Margin="150,220,150,285" BorderBrush="Red" BorderThickness="10" >
+                <Button.Effect>
+                    <DropShadowEffect Color="Red" ShadowDepth="0" BlurRadius="30"/>
+                </Button.Effect>
+                <Button.Background>
+                    <ImageBrush ImageSource="Images/cyanShip.jpg"/>
+                </Button.Background>
+            </Button>
+
+        </Grid>
+
+        <!-- END BATTLE MENU -->
+
+        <!-- OPTIONS MENU (collapse this stack panel)-->
+        <StackPanel Name="Options_Menu" Margin="0,30" Visibility="Hidden" CanVerticallyScroll="True" ScrollViewer.CanContentScroll="True" ClipToBounds="True">
+            <TextBlock Text="OPTIONS" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="72" TextAlignment="Center" Foreground="#FF000000" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                <TextBlock.LayoutTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="2" ScaleY="2"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </TextBlock.LayoutTransform>
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Name="TB_OPT_Difficulty" Text="DIFFICULTY" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="48" Foreground="#FF000000" HorizontalAlignment="Center" Margin="0,75,0,0">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <GroupBox HorizontalAlignment="Center" Width="364" Foreground="{x:Null}" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="10" BorderBrush="{x:Null}" BorderThickness="0">
+                <Grid>
+                    <RadioButton x:Name="EasyMode" MouseLeave="RB_MouseLeave"  MouseEnter="RB_MouseEnter" MouseLeftButtonDown="RB_MouseLeftButtonDown" Content="Easy" Margin="32,0,249,2" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="24" Foreground="#FF000000" Background="#E5FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="4,0,0,0" VerticalContentAlignment="Center" Cursor="Hand">
+                        <RadioButton.Effect>
+                            <DropShadowEffect  Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                        </RadioButton.Effect>
+                    </RadioButton>
+
+                    <RadioButton x:Name="MediumMode" MouseLeave="RB_MouseLeave"  MouseEnter="RB_MouseEnter" MouseLeftButtonDown="RB_MouseLeftButtonDown" Content="Medium" Margin="126,0,126,2" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="24" Foreground="#FF000000" Background="#E5FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="4,0,0,0" VerticalContentAlignment="Center" IsChecked="True" Cursor="Hand">
+                        <RadioButton.Effect>
+                            <DropShadowEffect  Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                        </RadioButton.Effect>
+                    </RadioButton>
+
+                    <RadioButton x:Name="HardMode" MouseLeave="RB_MouseLeave"  MouseEnter="RB_MouseEnter" MouseLeftButtonDown="RB_MouseLeftButtonDown" Content="Hard" Margin="250,0,33,2" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="24" Foreground="#FF000000" Background="#E5FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="4,0,0,0" VerticalContentAlignment="Center" Cursor="Hand">
+                        <RadioButton.Effect>
+                            <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                        </RadioButton.Effect>
+                    </RadioButton>
+                </Grid>
+            </GroupBox>
+            <TextBlock Name="TB_OPT_Cheats" Text="CHEATS" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="48" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <GroupBox HorizontalAlignment="Center" Width="364" Foreground="{x:Null}" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="10" BorderBrush="{x:Null}" BorderThickness="0">
+                <Grid Margin="0,0,-2,0">
+                    <RadioButton x:Name="CheatsEnabled" Checked="PauseCheatsEnabled_Checked" MouseLeave="RB_MouseLeave"  MouseEnter="RB_MouseEnter" MouseLeftButtonDown="RB_MouseLeftButtonDown" Content="Enable" Margin="66,2,192,5" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="24" Foreground="#FF000000" Background="White" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="4,0,0,0" VerticalContentAlignment="Center" Cursor="Hand" Width="96">
+                        <RadioButton.Effect>
+                            <DropShadowEffect  Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                        </RadioButton.Effect>
+                    </RadioButton>
+
+                    <RadioButton x:Name="CheatsDisabled" Checked="PauseCheatsDisabled_Checked" MouseLeave="RB_MouseLeave"  MouseEnter="RB_MouseEnter" MouseLeftButtonDown="RB_MouseLeftButtonDown" Content="Disable" Margin="183,2,61,5" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="24" Foreground="#FF000000" Background="#E5FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="4,0,0,0" VerticalContentAlignment="Center" IsChecked="True" Cursor="Hand" Width="110">
+                        <RadioButton.Effect>
+                            <DropShadowEffect  Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                        </RadioButton.Effect>
+                    </RadioButton>
+                </Grid>
+            </GroupBox>
+
+            <TextBlock Name="TB_OPT_About" MouseLeftButtonDown="TB_MouseLeftButtonDown" MouseLeftButtonUp="TB_OPT_About_MouseLeftButtonUp" MouseEnter="TB_MouseEnter" MouseLeave="TB_MouseLeave" Text="ABOUT" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="48" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Name="TB_OPT_Back" MouseLeftButtonDown="TB_MouseLeftButtonDown" MouseLeftButtonUp="TB_OPT_Back_MouseLeftButtonUp" MouseEnter="TB_MouseEnter" MouseLeave="TB_MouseLeave" Text="BACK" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="48" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+        </StackPanel>
+        <!-- END OPTIONS MENU -->
+
+        <!-- ABOUT -->
+        <Grid Name="About" Visibility="Hidden" ScrollViewer.CanContentScroll="True" ClipToBounds="True">
+            <TextBlock Text="ABOUT" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="72" TextAlignment="Center" Foreground="#FF000000" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5" Margin="0,30,0,0">
+                <TextBlock.LayoutTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="2" ScaleY="2"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </TextBlock.LayoutTransform>
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Name="About_Text" Text="• Created By: Braden Boettcher
+                       • Created Using: .NET 4.6
+                       • Version No.: 0.8.5" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" TextAlignment="Center" Width="500" Margin="0,200" FontSize="24" Foreground="#FF000000" HorizontalAlignment="Center" TextWrapping="Wrap">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Name="About_Back" MouseLeftButtonDown="TB_MouseLeftButtonDown" MouseLeftButtonUp="About_Back_MouseLeftButtonUp"  MouseEnter="TB_MouseEnter" MouseLeave="TB_MouseLeave" Text="BACK" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="48" Foreground="#FF000000" HorizontalAlignment="Center" Margin="0,325,0,0">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+        </Grid>
+        <!-- END ABOUT -->
+
+        <!-- PAUSE MENU (collapse this stack panel)-->
+        <StackPanel Name="Pause_Menu" Margin="0,30" Visibility="Hidden" CanVerticallyScroll="True" ScrollViewer.CanContentScroll="True" ClipToBounds="True">
+            <TextBlock Text="PAUSE MENU" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="72" TextAlignment="Center" Foreground="#FF000000" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                <TextBlock.LayoutTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="2" ScaleY="2"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </TextBlock.LayoutTransform>
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Name="TB_PM_Resume" Text="RESUME" MouseLeftButtonUp="TB_PM_Resume_MouseLeftButtonUp"  MouseLeftButtonDown="TB_MouseLeftButtonDown"  MouseEnter="TB_MouseEnter"  MouseLeave="TB_MouseLeave"  FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="48" Foreground="#FF000000" HorizontalAlignment="Center" Margin="0,75,0,0">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Name="TB_PM_Cheats" Text="CHEATS" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="48" Foreground="#E5000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <GroupBox HorizontalAlignment="Center" Width="364" Foreground="{x:Null}" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="10" BorderBrush="{x:Null}" BorderThickness="0">
+                <Grid Margin="0,0,-2,0">
+                    <RadioButton x:Name="PauseCheatsEnabled" Checked="PauseCheatsEnabled_Checked" MouseLeave="RB_MouseLeave" MouseEnter="RB_MouseEnter" MouseLeftButtonDown="RB_MouseLeftButtonDown"  Content="Enable" Margin="66,2,192,5" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="24" Foreground="#FF000000" Background="White" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="4,0,0,0" VerticalContentAlignment="Center" Cursor="Hand" Width="96">
+                        <RadioButton.Effect>
+                            <DropShadowEffect  Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                        </RadioButton.Effect>
+                    </RadioButton>
+
+                    <RadioButton x:Name="PauseCheatsDisabled" Checked="PauseCheatsDisabled_Checked" MouseLeave="RB_MouseLeave" MouseEnter="RB_MouseEnter" MouseLeftButtonDown="RB_MouseLeftButtonDown"  Content="Disable" Margin="183,2,61,5" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="24" Foreground="#FF000000" Background="#E5FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="4,0,0,0" VerticalContentAlignment="Center" IsChecked="True" Cursor="Hand" Width="110">
+                        <RadioButton.Effect>
+                            <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                        </RadioButton.Effect>
+                    </RadioButton>
+                </Grid>
+            </GroupBox>
+            <TextBlock Name="TB_PM_Quit" MouseLeftButtonDown="TB_MouseLeftButtonDown"  MouseLeftButtonUp="TB_PM_Quit_MouseLeftButtonUp"  Text="QUIT TO MAIN MENU" MouseEnter="TB_MouseEnter"  MouseLeave="TB_MouseLeave"  FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="48" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Name="TB_Quit_Game" MouseLeftButtonDown="TB_MouseLeftButtonDown"  MouseLeftButtonUp="TB_Quit_MouseLeftButtonUp" MouseEnter="TB_MouseEnter"  MouseLeave="TB_MouseLeave"  Text="EXIT TO WINDOWS" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="48" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+        </StackPanel>
+        <!-- END PAUSE MENU-->
+
+        <!-- HIGH SCORES DISPLAY (collapse this stack panel)-->
+        <StackPanel Name="High_Scores_Display" Margin="0,30" Visibility="Hidden" CanVerticallyScroll="True" ScrollViewer.CanContentScroll="True" ClipToBounds="True">
+            <TextBlock Text="HIGH SCORES" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="72" TextAlignment="Center" Foreground="#FF000000" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                <TextBlock.LayoutTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="2" ScaleY="2"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </TextBlock.LayoutTransform>
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Name="HS_SinglePlayerScores" Text="SINGLE PLAYER" MouseLeftButtonUp="HS_SinglePlayerScores_MouseLeftButtonUp"  MouseLeftButtonDown="TB_MouseLeftButtonDown"  MouseEnter="TB_MouseEnter" MouseLeave="TB_MouseLeave" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="48" Foreground="#FF000000" HorizontalAlignment="Center" Margin="0,75,0,0">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Name="HS_MultiPlayerScores" Text="MULTIPLAYER" MouseLeftButtonUp="HS_MultiPlayerScores_MouseLeftButtonUp"  MouseLeftButtonDown="TB_MouseLeftButtonDown" MouseEnter="TB_MouseEnter" MouseLeave="TB_MouseLeave" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="48" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Name="HS_Back" MouseLeftButtonDown="TB_MouseLeftButtonDown" MouseLeftButtonUp="HS_Back_MouseLeftButtonUp"  Text="MAIN MENU" MouseEnter="TB_MouseEnter"  MouseLeave="TB_MouseLeave"  FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="48" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+        </StackPanel>
+        <!-- END HIGH SCORES DISPLAY -->
+
+        <!-- HIGH SCORES TABLE-->
+        <Grid Name="High_Scores_Table" Visibility="Hidden" HorizontalAlignment="Center" Width="600" Height="510" VerticalAlignment="Center" ScrollViewer.CanContentScroll="True" ClipToBounds="True">
+            <TextBlock Name="Name_1" Text="" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" Foreground="#FF000000" Width="252" HorizontalAlignment="Left" TextAlignment="Left" Margin="0,10,0,346" FontSize="36">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Name="Score_1" Text="" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" Foreground="#FF000000" Width="252" HorizontalAlignment="Right" TextAlignment="Right" Margin="348,10,0,346" FontSize="36">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Name="Name_2" Text="" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" Foreground="#FF000000" Width="252" HorizontalAlignment="Left" TextAlignment="Left" Margin="0,54,0,302" FontSize="36" TextWrapping="WrapWithOverflow">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Name="Score_2" Text="" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" Foreground="#FF000000" Width="252" HorizontalAlignment="Right" TextAlignment="Right" Margin="0,54,0,302" FontSize="36">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Name="Name_3" Text="" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" Foreground="#FF000000" Width="252" HorizontalAlignment="Left" TextAlignment="Left" Margin="0,98,0,258" FontSize="36">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Name="Score_3" Text="" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" Foreground="#FF000000" Width="252" HorizontalAlignment="Right" TextAlignment="Right" Margin="0,98,0,258" FontSize="36">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Name="Name_4" Text="" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" Foreground="#FF000000" Width="252" HorizontalAlignment="Left" TextAlignment="Left" Margin="0,142,0,214" FontSize="36">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Name="Score_4" Text="" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" Foreground="#FF000000" Width="252" HorizontalAlignment="Right" TextAlignment="Right" Margin="0,142,0,214" FontSize="36">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Name="Name_5" Text="" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" Foreground="#FF000000" Width="252" HorizontalAlignment="Left" TextAlignment="Left" Margin="0,186,0,170" FontSize="36">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Name="Score_5" Text="" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" Foreground="#FF000000" Width="252" HorizontalAlignment="Right" TextAlignment="Right" Margin="0,186,0,170" FontSize="36">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Name="Name_6" Text="" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" Foreground="#FF000000" Width="252" HorizontalAlignment="Left" TextAlignment="Left" Margin="0,230,0,126" FontSize="36">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Name="Score_6" Text="" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" Foreground="#FF000000" Width="252" HorizontalAlignment="Right" TextAlignment="Right" Margin="0,230,0,126" FontSize="36">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Name="Name_7" Text="" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" Foreground="#FF000000" Width="252" HorizontalAlignment="Left" TextAlignment="Left" Margin="0,274,0,82" FontSize="36">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Name="Score_7" Text="" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" Foreground="#FF000000" Width="252" HorizontalAlignment="Right" TextAlignment="Right" Margin="0,274,0,82" FontSize="36">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Name="Name_8" Text="" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" Foreground="#FF000000" Width="252" HorizontalAlignment="Left" TextAlignment="Left" Margin="0,318,0,38" FontSize="36">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Name="Score_8" Text="" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" Foreground="#FF000000" Width="252" HorizontalAlignment="Right" TextAlignment="Right" Margin="0,318,0,38" FontSize="36">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Name="Name_9" Text="" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" Foreground="#FF000000" Width="252" HorizontalAlignment="Left" TextAlignment="Left" Margin="0,362,0,-29" FontSize="36">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Name="Score_9" Text="" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" Foreground="#FF000000" Width="252" HorizontalAlignment="Right" TextAlignment="Right" Margin="0,362,0,-29" FontSize="36">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Name="Name_10" Text="" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" Foreground="#FF000000" Width="252" HorizontalAlignment="Left" TextAlignment="Left" Margin="0,406,0,-73" FontSize="36">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Name="Score_10" Text="444" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" Foreground="#FF000000" Width="252" HorizontalAlignment="Right" TextAlignment="Right" Margin="0,406,0,-73" FontSize="36">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Name="HS_Return" Text="HIGH SCORES MENU" MouseLeftButtonUp="HS_Return_MouseLeftButtonUp"  MouseLeftButtonDown="TB_MouseLeftButtonDown"  MouseEnter="TB_MouseEnter" MouseLeave="TB_MouseLeave" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="48" Foreground="#FF000000" HorizontalAlignment="Center" Margin="0,450,0,0">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+        </Grid>
+        <!-- END HIGH SCORES TABLE-->
+
+        <!-- INITIALS -->
+        <Grid Name="SP_Initials" Visibility="Hidden" HorizontalAlignment="Center" Width="400" Height="400" VerticalAlignment="Center" ClipToBounds="True">
+            <TextBlock Text="ENTER INITIALS" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="48" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+
+            <TextBox Name="I1" Text="-" TextChanged="TextChanged" TextAlignment="Center" Cursor="IBeam" Margin="56,60,248,242" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="72" Background="{x:Null}" BorderBrush="#E5000000" SelectionBrush="#FFB163FF" Foreground="#FF000000" BorderThickness="5" >
+                <TextBox.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBox.Effect>
+            </TextBox>
+            <TextBox Name="I2" Text="-" TextChanged="TextChanged" TextAlignment="Center" Cursor="IBeam" Margin="152,60,152,242" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="72" Background="{x:Null}" BorderBrush="#E5000000" SelectionBrush="#FFB163FF" Foreground="#FF000000" BorderThickness="5" >
+                <TextBox.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBox.Effect>
+            </TextBox>
+            <TextBox Name="I3" Text="-" TextChanged="TextChanged" TextAlignment="Center" Cursor="IBeam" Margin="248,60,56,242" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="72" Background="{x:Null}" BorderBrush="#E5000000" SelectionBrush="#FFB163FF" Foreground="#FF000000" BorderThickness="5" >
+                <TextBox.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBox.Effect>
+            </TextBox>
+
+            <Grid Name="MP_Initials" Visibility="Hidden" HorizontalAlignment="Center" Width="400" Height="200">
+                <TextBlock Text="+" TextAlignment="Center" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="48" Foreground="#FF000000" HorizontalAlignment="Center" Width="90" Margin="152,50,158,-50">
+                    <TextBlock.Effect>
+                        <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                    </TextBlock.Effect>
+                </TextBlock>
+                <TextBox Name="I4" Text="-" TextChanged="TextChanged" TextAlignment="Center" Cursor="IBeam" Width="96" Height="98" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="72" Background="{x:Null}" BorderBrush="#E5000000" SelectionBrush="#FFB163FF" Foreground="#FF000000" BorderThickness="5" Margin="56,102,248,0" >
+                    <TextBox.Effect>
+                        <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                    </TextBox.Effect>
+                </TextBox>
+                <TextBox Name="I5" Text="-" TextChanged="TextChanged" TextAlignment="Center" Cursor="IBeam" Width="96" Height="98" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="72" Background="{x:Null}" BorderBrush="#E5000000" SelectionBrush="#FFB163FF" Foreground="#FF000000" BorderThickness="5" Margin="152,102,152,0" >
+                    <TextBox.Effect>
+                        <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                    </TextBox.Effect>
+                </TextBox>
+                <TextBox Name="I6" Text="-" TextChanged="TextChanged" TextAlignment="Center" Cursor="IBeam" Width="96" Height="98" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="72" Background="{x:Null}" BorderBrush="#E5000000" SelectionBrush="#FFB163FF" Foreground="#FF000000" BorderThickness="5" Margin="248,102,56,0" >
+                    <TextBox.Effect>
+                        <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                    </TextBox.Effect>
+                </TextBox>
+            </Grid>
+
+            <TextBlock Name="SP_Init_Submit" TextAlignment="Center" MouseLeftButtonDown="TB_MouseLeftButtonDown" MouseLeftButtonUp="SP_Init_Submit_MouseLeftButtonUp"  MouseEnter="TB_MouseEnter" MouseLeave="TB_MouseLeave" Text="SUBMIT" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="48" Foreground="#FF000000" HorizontalAlignment="Center" Margin="101,326,114,10" Width="185">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+        </Grid>
+        <!-- END INITIALS -->
+
+        <!-- SP CONTROLS -->
+        <StackPanel Name="SP_Controls" Margin="0,30" Visibility="Hidden" CanVerticallyScroll="True" ScrollViewer.CanContentScroll="True" ClipToBounds="True" Focusable="True">
+            <TextBlock Text="Esc                     Pause" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="24" Foreground="#FF000000" HorizontalAlignment="Center" ScrollViewer.CanContentScroll="True">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Text="PLAYER 1" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="24" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Text="W                     Thrust" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="24" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Text="A      Rotate Counter-Clockwise" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="24" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Text="D             Rotate Clockwise" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="24" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Text="S                       Warp" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="24" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Text="Space                    Fire" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="24" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Text="PLAYER 2" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="24" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Text="Up                     Thrust" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="24" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Text="Left    Rotate Counter-Clockwise" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="24" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Text="Right          Rotate Clockwise" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="24" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Text="Down                    Warp" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="24" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Text="Enter                     Fire" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="24" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Text="CHEATS" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="24" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Text="One          15 Sec Invincibility" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="24" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Text="Two                 Extra Life" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="24" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Text="Three           Spawn Asteroid" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="24" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Text="Four             Spawn Saucer" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="24" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Text="Five          Spawn Mothership" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="24" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Name="SP_Controls_Back" Text="BACK" MouseLeftButtonUp="SP_Controls_Back_MouseLeftButtonUp" MouseLeftButtonDown="TB_MouseLeftButtonDown" MouseEnter="TB_MouseEnter" MouseLeave="TB_MouseLeave" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="48" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+        </StackPanel>
+        <!-- END SP CONTROLS -->
+
+        <!-- MP CONTROLS-->
+        <StackPanel Name="MP_Controls" Margin="0,30" Visibility="Hidden" CanVerticallyScroll="True" ScrollViewer.CanContentScroll="True" ClipToBounds="True" Focusable="True">
+            <TextBlock Text="Esc                     Pause" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="24" Foreground="#FF000000" HorizontalAlignment="Center" ScrollViewer.CanContentScroll="True">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Text="PLAYER 1" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="24" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Text="W                     Thrust" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="24" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Text="A      Rotate Counter-Clockwise" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="24" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Text="D             Rotate Clockwise" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="24" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Text="S                       Warp" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="24" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Text="Space                    Fire" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="24" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Text="PLAYER 2" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="24" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Text="Up                     Thrust" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="24" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Text="Left    Rotate Counter-Clockwise" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="24" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Text="Right          Rotate Clockwise" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="24" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Text="Down                    Warp" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="24" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Text="Enter                     Fire" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="24" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Text="CHEATS" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="24" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Text="One          15 Sec Invincibility" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="24" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Text="Two                 Extra Life" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="24" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Text="Three           Spawn Asteroid" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="24" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Text="Four             Spawn Saucer" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="24" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Text="Five          Spawn Mothership" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="24" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Name="MP_Controls_Back" Text="BACK" MouseLeftButtonUp="MP_Controls_Back_MouseLeftButtonUp" MouseLeftButtonDown="TB_MouseLeftButtonDown" MouseEnter="TB_MouseEnter" MouseLeave="TB_MouseLeave" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="48" Foreground="#FF000000" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+        </StackPanel>
+        <!-- END MP CONTROLS-->
+
+        <!-- GAME CANVAS -->
+        <Canvas Name="canvas"/>
+
+        <!-- ARCADE HUD (collapse this stack panel)-->
+        <Grid Name="ArcadeHUD" Visibility="Hidden" Width="420" Height="60" HorizontalAlignment="Center" VerticalAlignment="Top" ClipToBounds="True">
+            <TextBlock Name="ArcadeScore" Text="0" Foreground="White" HorizontalAlignment="Center" FontFamily="Segoe UI Semibold" FontSize="36" TextAlignment="Center" Margin="0,-3,0,0">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="White" ShadowDepth="0" BlurRadius="8"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Text="SCORE" HorizontalAlignment="Center" Foreground="White" FontSize="16" Margin="0,36,0,0">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="White" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Name="ArcadeLives" Text="3" TextAlignment="Center" 
+                       Foreground="White" FontSize="24" HorizontalAlignment="Left" Margin="82,-3,0,0" Width="27">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="White" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Text="LIVES"
+                       Foreground="White" HorizontalAlignment="Center" Margin="48,10,344,0">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="White" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Name="ArcadeDifficulty" TextAlignment="Center"
+                       Foreground="White" HorizontalAlignment="Left" Margin="311,10,0,0" Width="63">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="White" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+        </Grid>
+        <!-- END ARCADE HUD -->
+
+        <Grid Name="Customize" Visibility="Hidden">
+            <TextBlock Text="CUSTOMIZE" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="72" TextAlignment="Center" Foreground="#FF000000" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5" Margin="0,30,0,0">
+                <TextBlock.LayoutTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="2" ScaleY="2"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </TextBlock.LayoutTransform>
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <Label Foreground="White" Content="R" FontSize="24" HorizontalAlignment="Center" Margin="0,405,0,0"/>
+            <Label Foreground="White" Content="G" FontSize="24" HorizontalAlignment="Center" Margin="0,427,0,0"/>
+            <Label Foreground="White" Content="B" FontSize="24" HorizontalAlignment="Center" Margin="0,450,0,0"/>
+
+            <StackPanel Orientation="Horizontal" Width="800">
+                <StackPanel HorizontalAlignment="Left" Width="400">
+                    <TextBlock Text="" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="72" TextAlignment="Center" Foreground="#FF000000" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5" Margin="0,30,0,0">
+                        <TextBlock.LayoutTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleX="2" ScaleY="2"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </TextBlock.LayoutTransform>
+                        <TextBlock.Effect>
+                            <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                        </TextBlock.Effect>
+                    </TextBlock>
+                    <Label Content="PLAYER 1" Foreground="White" FontSize="24" HorizontalAlignment="Center" Margin="0,30">
+                        <Label.Effect>
+                            <DropShadowEffect Color="White" ShadowDepth="0" BlurRadius="8"/>
+                        </Label.Effect>
+                    </Label>
+                    <Canvas Width="100" Height="100" Margin="0,-40,0,20" HorizontalAlignment="Center">
+                        <Polyline Name="P1_Custom_Ship" StrokeEndLineCap="Round" Fill="Transparent" StrokeStartLineCap="Round" StrokeLineJoin="Round" Points="25,100 50,25 75,100 70,90 30,90 25,100" Stroke="Cyan" StrokeThickness="8">
+                            <Polyline.Effect>
+                                <DropShadowEffect ShadowDepth="0" Color="Cyan" BlurRadius="50"/>
+                            </Polyline.Effect>
+                        </Polyline>
+                    </Canvas>
+                    <Label Content="Ship Color" Foreground="White" FontSize="24" HorizontalAlignment="Center">
+                        <Label.Effect>
+                            <DropShadowEffect Color="White" ShadowDepth="0" BlurRadius="8"/>
+                        </Label.Effect>
+                    </Label>
+                    <Slider Name="CustomP1StrokeRed" ValueChanged="P1_Ship_Color_Changed" Height="20" Width="256" Maximum="255" Foreground="White" SmallChange="1" TickFrequency="3" AutoToolTipPlacement="TopLeft" TickPlacement="BottomRight" Cursor="Hand" Value="0"/>
+                    <Slider Name="CustomP1StrokeGreen" ValueChanged="P1_Ship_Color_Changed" Height="20" Width="256" Maximum="255" Foreground="White" SmallChange="1" TickFrequency="3" AutoToolTipPlacement="TopLeft" TickPlacement="BottomRight" Cursor="Hand" Value="255"/>
+                    <Slider Name="CustomP1StrokeBlue" ValueChanged="P1_Ship_Color_Changed" Height="20" Width="256" Maximum="255" Foreground="White" SmallChange="1" TickFrequency="3" AutoToolTipPlacement="TopLeft" TickPlacement="BottomRight" Cursor="Hand" Value="255"/>
+
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Center" Width="400">
+                    <TextBlock Text="" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="72" TextAlignment="Center" Foreground="#FF000000" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5" Margin="0,30,0,0">
+                        <TextBlock.LayoutTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleX="2" ScaleY="2"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </TextBlock.LayoutTransform>
+                        <TextBlock.Effect>
+                            <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                        </TextBlock.Effect>
+                    </TextBlock>
+                    <Label Content="PLAYER 2" Foreground="White" FontSize="24" HorizontalAlignment="Center" Margin="0,30">
+                        <Label.Effect>
+                            <DropShadowEffect Color="White" ShadowDepth="0" BlurRadius="8"/>
+                        </Label.Effect>
+                    </Label>
+                    <Canvas Width="100" Height="100" Margin="0,-40,0,20" HorizontalAlignment="Center">
+                        <Polyline Name="P2_Custom_Ship" StrokeEndLineCap="Round" Fill="Transparent" StrokeStartLineCap="Round" StrokeLineJoin="Round" Points="25,100 50,25 75,100 70,90 30,90 25,100" Stroke="Orange" StrokeThickness="8">
+                            <Polyline.Effect>
+                                <DropShadowEffect ShadowDepth="0" Color="Orange" BlurRadius="50"/>
+                            </Polyline.Effect>
+                        </Polyline>
+                    </Canvas>
+                    <Label Content="Ship Color" Foreground="White" FontSize="24" HorizontalAlignment="Center">
+                        <Label.Effect>
+                            <DropShadowEffect Color="White" ShadowDepth="0" BlurRadius="8"/>
+                        </Label.Effect>
+                    </Label>
+                    <Slider Name="CustomP2StrokeRed" ValueChanged="P2_Ship_Color_Changed" HorizontalAlignment="Center" Height="20" Width="256" Maximum="255" Foreground="White" SmallChange="1" TickFrequency="3" AutoToolTipPlacement="TopLeft" TickPlacement="BottomRight" Cursor="Hand" Value="255"/>
+                    <Slider Name="CustomP2StrokeGreen" ValueChanged="P2_Ship_Color_Changed" HorizontalAlignment="Center" Height="20" Width="256" Maximum="255" Foreground="White" SmallChange="1" TickFrequency="3" AutoToolTipPlacement="TopLeft" TickPlacement="BottomRight" Cursor="Hand" Value="165"/>
+                    <Slider Name="CustomP2StrokeBlue" ValueChanged="P2_Ship_Color_Changed" HorizontalAlignment="Center" Height="20" Width="256" Maximum="255" Foreground="White" SmallChange="1" TickFrequency="3" AutoToolTipPlacement="TopLeft" TickPlacement="BottomRight" Cursor="Hand" Value="0"/>
+
+                </StackPanel>
+            </StackPanel>
+            <TextBlock Name="TB_CUST_Accept" Text="ACCEPT CHANGES" MouseLeftButtonUp="TB_CUST_Accept_MouseLeftButtonUp"  MouseLeftButtonDown="TB_MouseLeftButtonDown" MouseEnter="TB_MouseEnter" MouseLeave="TB_MouseLeave" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="48" Foreground="#FF000000" HorizontalAlignment="Center" Margin="0,500,0,0">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Name="TB_CUST_Cancel" Text="CANCEL" MouseLeftButtonUp="TB_CUST_Cancel_MouseLeftButtonUp"  MouseLeftButtonDown="TB_MouseLeftButtonDown" MouseEnter="TB_MouseEnter" MouseLeave="TB_MouseLeave" FontFamily="/Asteroid;component/Fonts/#AR DESTINE" FontSize="48" Foreground="#FF000000" HorizontalAlignment="Center" Margin="0,560,0,0">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB163FF" BlurRadius="30" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+
+
+
+
+        </Grid>
+
+    </Grid>
+</Window>
