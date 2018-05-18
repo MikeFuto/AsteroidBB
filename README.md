@@ -2,7 +2,7 @@
 # Asteroid
 A recreation of the arcade classic "Asteroids" with C# and WPF.
 ----------------------------------------------------------------
-This was the final project for a class on C# and GUI Development. There were several project options given, but I requested this project of recreating Asteroids and it got approved
+This was the final project for a class on C# and GUI Development. There were several project options given, but I requested this project of recreating Asteroids and it got approved.
 
 - I learned how important optimization is for programs like this, and while my collision algorithm is still very slow, it is much better than it used to be. I plan on improving the algorithm by splitting up collision testing into different subsections (divide and conquer!).
 - I also learned a lot about the roles that mathematics plays in games like this as I designed the physics behind the ship's movement (a basic thrust in zero-gravity system). 
